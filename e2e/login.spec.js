@@ -28,12 +28,15 @@ users.forEach(({ username, password }) => {
     const start = Date.now();
     try {
       await page.goto('https://dev311826.service-now.com'); // 2025_06_27: slows down? 
+      // await page.fill('#user_name', "aes.creator");
+      // await page.fill('#user_password', "oO$oOc$OX5l3");
       await page.fill('#user_name', username);
       await page.fill('#user_password', password);
       await page.click('#sysverb_login');
       // await page.getByRole('textbox', { name: 'Password' }).click();
       // await page.getByRole('textbox', { name: 'Password' }).fill(password);
-      await expect(page.getByRole('heading', { name: 'ServiceNow Studio' })).toBeVisible();
+      await expect(page).toHaveURL(/now.*nav.*ui/i);
+      // await expect(page.getByRole('heading', { name: 'ServiceNow Studio' })).toBeVisible();
       // await page.locator('div').filter({ hasText: 'ServiceNow StudioThe future' }).nth(3);
 
       logResult(`[PASS] ${username} logged in successfully at ${new Date().toISOString()}`);
