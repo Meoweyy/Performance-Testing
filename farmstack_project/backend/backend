@@ -1,0 +1,15 @@
+// playwright.config.js
+
+/** @type {import('@playwright/test').PlaywrightTestConfig} */
+const config = {
+  testDir: './tests',
+  outputDir: 'playwright-artifacts',
+  retries: 1,
+  use: {
+    trace: 'on-first-retry',        // record a trace only when the test is retried
+    screenshot: 'only-on-failure',  // capture screenshot on failure
+    video: 'retain-on-failure',     // keep video only if the test fails
+  },
+};
+
+module.exports = config;
