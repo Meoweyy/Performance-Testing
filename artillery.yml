@@ -1,0 +1,21 @@
+config:
+  target: https://dev311826.service-now.com
+  # Load the Playwright engine:
+  engines:
+    playwright: {}
+  # Path to JavaScript file that defines Playwright test functions
+  # TypeScript is also supported
+  processor: './e2e/Artillery/login.js'
+scenarios:
+  - engine: playwright
+    testFunction: "artillery_test"
+  # # Define 50 virtual users for 60 seconds
+  # - flow:
+  #     - think: 1
+  #     - rampTo: 50
+  #     - pause: 60
+  #     - rampTo: 0
+  #     - pause: 10
+  #   weight: 1
+  #   tags:
+  #     - login_test // doesn't work with command prompt? idk
