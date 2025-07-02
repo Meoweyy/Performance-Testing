@@ -2,20 +2,40 @@ config:
   target: https://dev311826.service-now.com
   # Load the Playwright engine:
   engines:
-    playwright: {}
+    playwright: 
+      trace: true # Enable tracing for debugging
   # Path to JavaScript file that defines Playwright test functions
   # TypeScript is also supported
   processor: './e2e/Artillery/login.js'
+  phases:
+    #ramp up 
+    - name: "fixed 100 users total over 1 seconds"
+      duration: 1
+      arrivalRate: 100
+    #pause
+    - name: "180 sec pause"
+      pause: 180
+    # #fixed 10
+    # - name: "Fixed 101u total for 10 seconds" #should be 90
+    #   duration: 1
+    #   arrivalRate: 90
+    # #pause
+    # - name: "30 sec pause"
+    #   pause: 
+    #     #ramp up 
+    # - name: "fixed 99 users total over 1 seconds" #should be 80
+    #   duration: 1
+    #   arrivalRate: 80
+    # #pause
+    # - name: "30 sec pause"
+    #   pause: 30
+    # #fixed 70 users total over 1 seconds
+    # - name: "fixed 80 users total over 1 seconds"
+    #   duration: 1
+    #   arrivalRate: 70
+    # #pause
+    # - name: "30 sec pause"
+    #   pause: 30
 scenarios:
   - engine: playwright
     testFunction: "artillery_test"
-  # # Define 50 virtual users for 60 seconds
-  # - flow:
-  #     - think: 1
-  #     - rampTo: 50
-  #     - pause: 60
-  #     - rampTo: 0
-  #     - pause: 10
-  #   weight: 1
-  #   tags:
-  #     - login_test // doesn't work with command prompt? idk
